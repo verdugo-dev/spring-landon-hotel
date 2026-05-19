@@ -1,7 +1,5 @@
 package com.carlos.landon_hotel.data.entity;
 
-import java.sql.Date;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
