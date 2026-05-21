@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,7 +41,7 @@ public class GuestApiController {
     }
 
     @GetMapping("/{id}")
-    public Guest getGuest(@PathVariable("id") long id) {
+    public Guest getGuest(@PathVariable("id")long id) {
         Optional<Guest> guest = this.guestRepository.findById(id);
 
         if (guest.isEmpty()) {
@@ -55,6 +56,14 @@ public class GuestApiController {
         if (id != guest.getId()) {
             throw new BadRequestException();
         }
+
+        return guestRepository.save(guest);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.RESET_CONTENT)
+    public void deleteGuest(@PathVariable("id")long id) {
+        this.guestRepository.deleteById(id);
     }
 
 }
